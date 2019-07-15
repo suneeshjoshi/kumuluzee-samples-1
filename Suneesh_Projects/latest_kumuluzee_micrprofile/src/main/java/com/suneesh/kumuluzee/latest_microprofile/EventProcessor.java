@@ -1,28 +1,36 @@
-package com.suneesh.kumuluzee.latest_microprofile;
+package main.java.com.suneesh.kumuluzee.latest_microprofile;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.annotation.Resource;
-import javax.enterprise.context.ApplicationScoped;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 import org.jboss.logging.Logger;
 
-@ApplicationScoped
-@Resource
 public class EventProcessor {
 	private static final Logger log = Logger.getLogger(EventProcessor.class);
 
 	public EventProcessor() {
 		super();
 		log.info("CTOR:START");
-		processTradeFile();
+	}
+
+	private void createJSONToSend(Path path) {
+		TradeFile t = new TradeFile(path, false, new ArrayList<String>());
+		List<String> content = t.getContent();
+		Jsonb b = JsonbBuilder.create();
+		String json = b.toJson(content);
+		log.info(json);
 	}
 
 	public void processTradeFile() {
@@ -41,6 +49,8 @@ public class EventProcessor {
 
 					for (WatchEvent<?> event : watchKey.pollEvents()) {
 						log.info("Event kind:" + event.kind() + ". File affected: " + event.context() + ".");
+						Path completeURL = Paths.get(dir.toAbsolutePath().toString(), event.context().toString());
+						createJSONToSend(completeURL);
 					}
 					watchKey.reset();
 				}

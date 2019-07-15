@@ -1,4 +1,4 @@
-package com.suneesh.kumuluzee.latest_microprofile;
+package main.java.com.suneesh.kumuluzee.latest_microprofile;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

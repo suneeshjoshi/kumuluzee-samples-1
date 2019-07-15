@@ -1,6 +1,11 @@
-package com.suneesh.kumuluzee.latest_microprofile;
+package main.java.com.suneesh.kumuluzee.latest_microprofile;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jboss.logging.Logger;
 
@@ -12,6 +17,20 @@ public class TradeFile {
 	private boolean processed;
 
 	List<String> content;
+
+	public TradeFile(Path path, boolean processed, List<String> content) {
+		super();
+		this.fileName = path.getFileName().toString();
+		URL = path.toAbsolutePath().toString();
+		this.processed = processed;
+		Path fileName2 = path.getFileName();
+		try (BufferedReader br = Files.newBufferedReader(path)) {
+			this.content = br.lines().collect(Collectors.toList());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public String getFileName() {
 		return fileName;

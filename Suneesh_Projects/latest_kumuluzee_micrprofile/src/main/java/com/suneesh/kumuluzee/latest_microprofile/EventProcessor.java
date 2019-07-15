@@ -17,6 +17,9 @@ import javax.json.bind.JsonbBuilder;
 
 import org.jboss.logging.Logger;
 
+import main.java.com.suneesh.kumuluzee.kafka.KafkaMessage;
+import main.java.com.suneesh.kumuluzee.kafka.SendMessage;
+
 public class EventProcessor {
 	private static final Logger log = Logger.getLogger(EventProcessor.class);
 
@@ -31,6 +34,8 @@ public class EventProcessor {
 		Jsonb b = JsonbBuilder.create();
 		String json = b.toJson(content);
 		log.info(json);
+
+		SendMessage.produceMessage(new KafkaMessage("message-key", json, "test"));
 	}
 
 	public void processTradeFile() {

@@ -20,26 +20,33 @@
  */
 package com.kumuluz.ee.samples.kumuluz_config;
 
-import com.kumuluz.ee.configuration.ConfigurationDecoder;
-
 import javax.xml.bind.DatatypeConverter;
+
+import org.jboss.logging.Logger;
+
+import com.kumuluz.ee.configuration.ConfigurationDecoder;
 
 /**
  * @author Jan Meznarič
  * @since 3.2.1
  */
 public class CustomConfigurationDecoder implements ConfigurationDecoder {
+	private static final Logger log = Logger.getLogger(CustomConfigurationDecoder.class);
 
-    @Override
-    public boolean shouldDecode(String key) {
-        if ("rest-config.encoded-property".equals(key)) {
-            return true;
-        }
-        return false;
-    }
+	public CustomConfigurationDecoder() {
+		log.info("CTOR");
+	}
 
-    @Override
-    public String decode(String key, String value) {
-        return new String(DatatypeConverter.parseBase64Binary(value));
-    }
+	@Override
+	public boolean shouldDecode(String key) {
+		if ("rest-config.encoded-property".equals(key)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String decode(String key, String value) {
+		return new String(DatatypeConverter.parseBase64Binary(value));
+	}
 }

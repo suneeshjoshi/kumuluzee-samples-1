@@ -23,10 +23,19 @@ package com.kumuluz.ee.samples.kumuluz_config;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import org.jboss.logging.Logger;
+
 /**
  * @author Benjamin Kastelic
  * @since 2.3.0
  */
 @ApplicationPath("/v1")
 public class ConfigApplication extends Application {
+
+	private static final Logger log = Logger.getLogger(ConfigApplication.class);
+
+	public ConfigApplication() {
+		log.info("CTOR");
+	}
+
 }

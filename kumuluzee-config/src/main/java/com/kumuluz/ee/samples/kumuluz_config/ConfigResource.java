@@ -29,6 +29,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jboss.logging.Logger;
+
 /**
  * @author Benjamin Kastelic
  * @since 2.3.0
@@ -39,28 +41,24 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class ConfigResource {
 
-    @Inject
-    private ConfigProperties properties;
+	private static final Logger log = Logger.getLogger(ConfigResource.class);
 
-    @GET
-    @Path("/config")
-    public Response test() {
-        String response =
-                "{" +
-                        "\"stringProperty\": \"%s\"," +
-                        "\"booleanProperty\": %b," +
-                        "\"integerProperty\": %d," +
-                        "\"encodedProperty\": \"%s\"" +
-                        "}";
+	public ConfigResource() {
+		log.info("CTOR");
+	}
 
-        response = String.format(
-                response,
-                properties.getStringProperty(),
-                properties.getBooleanProperty(),
-                properties.getIntegerProperty(),
-                properties.getEncodedProperty()
-        );
+	@Inject
+	private ConfigProperties properties;
 
-        return Response.ok(response).build();
-    }
+	@GET
+	@Path("/config")
+	public Response test() {
+		String response = "{" + "\"stringProperty\": \"%s\"," + "\"booleanProperty\": %b," + "\"integerProperty\": %d,"
+				+ "\"encodedProperty\": \"%s\"" + "}";
+
+		response = String.format(response, properties.getStringProperty(), properties.getBooleanProperty(),
+				properties.getIntegerProperty(), properties.getEncodedProperty());
+
+		return Response.ok(response).build();
+	}
 }

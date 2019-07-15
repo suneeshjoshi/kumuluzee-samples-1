@@ -20,9 +20,11 @@
  */
 package com.kumuluz.ee.samples.kumuluz_config;
 
-import com.kumuluz.ee.configuration.cdi.ConfigBundle;
-
 import javax.enterprise.context.ApplicationScoped;
+
+import org.jboss.logging.Logger;
+
+import com.kumuluz.ee.configuration.cdi.ConfigBundle;
 
 /**
  * @author Benjamin Kastelic
@@ -32,43 +34,49 @@ import javax.enterprise.context.ApplicationScoped;
 @ConfigBundle("rest-config")
 public class ConfigProperties {
 
-    private String stringProperty;
+	private static final Logger log = Logger.getLogger(ConfigProperties.class);
 
-    private Boolean booleanProperty;
+	public ConfigProperties() {
+		log.info("CTOR");
+	}
 
-    private Integer integerProperty;
+	private String stringProperty;
 
-    private String encodedProperty;
+	private Boolean booleanProperty;
 
-    public String getStringProperty() {
-        return stringProperty;
-    }
+	private Integer integerProperty;
 
-    public void setStringProperty(String stringProperty) {
-        this.stringProperty = stringProperty;
-    }
+	private String encodedProperty;
 
-    public Boolean getBooleanProperty() {
-        return booleanProperty;
-    }
+	public String getStringProperty() {
+		return stringProperty;
+	}
 
-    public void setBooleanProperty(Boolean booleanPropertysomeBoolean) {
-        this.booleanProperty = booleanPropertysomeBoolean;
-    }
+	public void setStringProperty(String stringProperty) {
+		this.stringProperty = stringProperty;
+	}
 
-    public Integer getIntegerProperty() {
-        return integerProperty;
-    }
+	public Boolean getBooleanProperty() {
+		return booleanProperty;
+	}
 
-    public void setIntegerProperty(Integer integerProperty) {
-        this.integerProperty = integerProperty;
-    }
+	public void setBooleanProperty(Boolean booleanPropertysomeBoolean) {
+		this.booleanProperty = booleanPropertysomeBoolean;
+	}
 
-    public String getEncodedProperty() {
-        return encodedProperty;
-    }
+	public Integer getIntegerProperty() {
+		return integerProperty;
+	}
 
-    public void setEncodedProperty(String encodedProperty) {
-        this.encodedProperty = encodedProperty;
-    }
+	public void setIntegerProperty(Integer integerProperty) {
+		this.integerProperty = integerProperty;
+	}
+
+	public String getEncodedProperty() {
+		return encodedProperty;
+	}
+
+	public void setEncodedProperty(String encodedProperty) {
+		this.encodedProperty = encodedProperty;
+	}
 }
